@@ -1,0 +1,77 @@
+<!--
+	No Copyright(s)
+	Author:			Suman B K
+	Date:			20-11-2016
+	Description:	This is a number guessing game for fun... :)
+-->
+<!DOCTYPE html>
+<html>
+	<head><title>Sample js Works</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="resources/css/style.css" type="text/css" />
+		<style>
+			.note{
+				text-decoration:underline; 
+				color:red;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>This is a number guessing game..</h2>
+		<p>Please enter some number between 1 to 9</p>
+		<p><span class="note">Note:</span> You've got only 5 chances</p>
+		<input type="text" id="num" placeholder="Enter a guess number" maxlength="1"/>
+		<input type="button" value="Guess" id="Guess" />
+		<input type="button" value="Re-run" id="re_run" hidden="hidden"/>
+		<p id="result"></p>
+		<script>
+			var res = document.getElementById('result');
+			var re_run = document.getElementById('re_run');
+			var rand = Math.floor(Math.random()*9);
+			
+			var btn = document.querySelector('#Guess');
+			var count = 0;
+			
+			btn.addEventListener('click', function() {
+				var num = document.querySelector('#num');
+				var num_regex = "/^[0-9]+$/";
+				
+				if(!num.value || isNaN(parseInt(num.value)))
+					return;
+					
+				if(parseInt(num.value) == rand && count!=5){
+					res.innerHTML += "Hurray! you've guessed the correct number: "+num.value;
+					post_game_over_processing();
+				}
+				else if (count >= 4){
+					res.innerHTML = "You've lost the game..";
+					post_game_over_processing();
+				}
+				else {
+					res.innerHTML += num.value + ", ";
+					num.value = "";
+					num.focus();
+					count++;
+				}
+			});
+			
+			re_run.addEventListener('click', function() {
+				num.value = "";
+				num.disabled = btn.disabled = false;
+				re_run.style = "display:hidden";
+				rand = Math.floor(Math.random()*9);
+				res.innerHTML = "";
+				num.focus();
+			});
+			
+			function post_game_over_processing() {
+				num.value = "";
+				num.disabled = btn.disabled = true;
+				re_run.style = "display:inline-block";
+				count = 0;
+			}
+		</script>
+		
+		<script src="resources/js/ext.js"></script>
+	</body>
+</html>
