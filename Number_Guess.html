@@ -18,7 +18,7 @@
 	</head>
 	<body>
 		<h2>This is a number guessing game..</h2>
-		<p>Please enter some number between 1 to 9</p>
+		<p>Please enter a number between 1 to 9</p>
 		<p><span class="note">Note:</span> You've got only 5 chances</p>
 		<input type="text" id="num" placeholder="Enter a guess number" maxlength="1"/>
 		<input type="button" value="Guess" id="Guess" />
@@ -44,7 +44,7 @@
 					post_game_over_processing();
 				}
 				else if (count >= 4){
-					res.innerHTML = "You've lost the game..";
+					res.innerHTML = "Oh No! You've lost the game..<p>The number was: " +rand+ "</p>";
 					post_game_over_processing();
 				}
 				else {
