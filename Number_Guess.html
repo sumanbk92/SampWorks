@@ -2,7 +2,7 @@
 	No Copyright(s)
 	Author:			Suman B K
 	Date:			20-11-2016
-	Description:	This is a number guessing game for fun... :)
+	Description:		This is a number guessing game for fun... :)
 -->
 <!DOCTYPE html>
 <html>
@@ -14,6 +14,13 @@
 				text-decoration:underline; 
 				color:red;
 			}
+			#message{
+				background-color:lightblue;
+				color:red;
+			}
+			body{
+				background-color: whitesmoke;
+			}
 		</style>
 	</head>
 	<body>
@@ -24,9 +31,12 @@
 		<input type="button" value="Guess" id="Guess" />
 		<input type="button" value="Re-run" id="re_run" hidden="hidden"/>
 		<p id="result"></p>
+		<p id="message"></p>
 		<script>
 			var res = document.getElementById('result');
 			var re_run = document.getElementById('re_run');
+			var message = document.getElementById('message');
+			
 			var rand = Math.floor(Math.random()*9);
 			
 			if(rand == 0)
@@ -39,8 +49,12 @@
 				var num = document.querySelector('#num');
 				var num_regex = "/^[0-9]+$/";
 				
-				if(!num.value || isNaN(parseInt(num.value)))
+				if(!num.value || isNaN(parseInt(num.value))) {
+					message.textContent = "Are you kidding me? please gimme a number..";
+					num.value = "";
+					num.focus();
 					return;
+				}
 					
 				if(parseInt(num.value) == rand && count!=5){
 					res.innerHTML += "Hurray! you've guessed the correct number: "+num.value;
@@ -52,6 +66,11 @@
 				}
 				else {
 					res.innerHTML += num.value + ", ";
+					if(num.value > rand)
+						//alert("Your guess was too high..!!");
+						message.textContent = "Your guess was too high..!! Try Again..:-(";
+					else
+						message.textContent = "Your guess was too low..!!  Try Again..:-(";
 					num.value = "";
 					num.focus();
 					count++;
@@ -71,6 +90,7 @@
 				num.value = "";
 				num.disabled = btn.disabled = true;
 				re_run.style = "display:inline-block";
+				message.innerHTML = "";
 				count = 0;
 			}
 		</script>
